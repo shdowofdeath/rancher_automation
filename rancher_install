@@ -127,7 +127,6 @@ function cleanup_after_init(){
 function create_context(){
     wget $CONTEXT_REQ
     wget $GET_CONTEXT
-    pip install -r requirements.txt
 
 
 }
@@ -160,4 +159,5 @@ sleep 45s
 rancher_configuration
 init_node
 validate_cluster_is_up
+get_context
 cleanup_after_init
