@@ -66,12 +66,26 @@ def get_cred(username, password, master_ip, debug, cluster_name, port, set_proxy
     response = requests.request("POST", url, data=payload, headers=headers, params=querystring, verify=False)
     token_rancher = response.json()
     token = token_rancher['token']
-    create_cred_file(token, debug, port, master_ip)
+    cluster_name = get_clusters(token, debug, port, master_ip)
+    create_cred_file(token, debug, port, master_ip ,cluster_name)
 
 
 
 
-def create_cred_file(token, debug, port, master_ip):
+def get_clusters(token, debug, port, master_ip):
+    url = "https://" + master_ip + ":" + port + "/v3/clusters?limit = -1 & sort = name"
+    headers = {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+        'Authorization': "Bearer " + token,
+        'Cache-Control': "no-cache"
+    }
+    response = requests.request("GET", url, headers=headers, verify=False)
+    response_data = response.json()
+    __cluser_name = response_data['data'][0]['id']
+    return __cluser_name
+
+def create_cred_file(token, debug, port, master_ip, cluster_name):
     """
     creating file for k8s contex
     :param token: to access k8s
@@ -81,7 +95,7 @@ def create_cred_file(token, debug, port, master_ip):
     :return: file path
     """
     if token != None:
-        url = "https://" + master_ip + ":" + port + "/v3/clusters/local"
+        url = "https://" + master_ip + ":" + port + "/v3/clusters/"+cluster_name
         querystring = {"action": "generateKubeconfig"}
         payload = "\r\n}\r\n}"
         headers = {
