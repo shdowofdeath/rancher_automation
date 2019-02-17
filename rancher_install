@@ -140,7 +140,7 @@ function validate_cluster_is_up(){
 
 
 function get_context(){
-    source context/bin/activate
+    pip install -r requirements.txt
     python get_context_from_rancher.py -u admin -p admin -i 127.0.0.1 -o 9443 -c local
     echo "Your cluster is ready to use , enjoy and don't brake it :) " 
     echo "To access please login with username admin , passowrd : admin to https://`hostname -I | cut -d' ' -f1`:9443"
