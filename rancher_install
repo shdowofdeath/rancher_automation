@@ -7,11 +7,47 @@ DEST_BIN="/usr/bin/jq"
 RANCHER_VERION="rancher/rancher:latest"
 PORT="9443"
 USERNAME="admin"
-PASSWORD="admin"
+PASSWORD=""
 HOSTNAME_IP=`hostname -I | cut -d' ' -f1`
-RANCHERSERVER_VER="v1.12.4-rancher1-1"
+RANCHERSERVER_VER=""
 AGENT_VERSION='v2.1.6'
 CLEANUP="true"
+
+function set_flags(){ 
+  while (( "$#" )); do
+    case "$1" in
+      -p|--password)
+        PASSWORD=$2
+        shift
+        ;;
+      -r|--rancher)
+        RANCHERSERVER_VER=$2
+        shift
+        ;;
+      --) # end argument parsing
+        shift
+        break
+        ;;
+      -*|--*=) # unsupported flags
+        echo "Error: Unsupported flag $1" >&2
+        exit 1
+        ;;
+      *) # preserve positional arguments
+        shift
+        ;;
+    esac
+  done
+  
+  if [ -z $PASSWORD ];then
+    PASSWORD="admin"
+  fi
+  
+  if [ -z $RANCHERSERVER_VER ];then
+    RANCHERSERVER_VER="v1.12.4-rancher1-1"
+  fi
+
+}
+
 
 function cleanup(){
     #cleanning dockers 
@@ -158,6 +194,7 @@ if [ ${CLEANUP} = "true" ] ; then
     sleep 1s
 fi
 
+set_flags
 validate_kubectl
 install_rancher
 rancher_validation
