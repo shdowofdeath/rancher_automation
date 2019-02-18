@@ -13,7 +13,6 @@ RANCHERSERVER_VER=""
 AGENT_VERSION='v2.1.6'
 CLEANUP="true"
 
-function set_flags(){ 
   while (( "$#" )); do
     case "$1" in
       -p|--password)
@@ -45,9 +44,6 @@ function set_flags(){
   if [ -z $RANCHERSERVER_VER ];then
     RANCHERSERVER_VER="v1.12.4-rancher1-1"
   fi
-
-}
-
 
 function cleanup(){
     #cleanning dockers 
@@ -194,7 +190,6 @@ if [ ${CLEANUP} = "true" ] ; then
     sleep 1s
 fi
 
-set_flags
 validate_kubectl
 install_rancher
 rancher_validation
