@@ -16,6 +16,7 @@ CLEANUP="true"
 function cleanup(){
     #cleanning dockers 
     while [ `docker ps -a  | grep -v CONTAINER | awk '{print $1}'   | wc -l` != 0  ] ; do 
+      docker ps -a  | awk '{print $1}' | xargs -I whatisit docker stop whatisit
       docker ps -a  | awk '{print $1}' | xargs -I whatisit docker rm -f whatisit
     done
     
@@ -109,9 +110,10 @@ function install_kubectl(){
 function validate_kubectl(){
     get_client=`kubectl version | grep Client  | wc -l`
     if [ ${get_client} !=  2 ] ; then
-        echo "no need to install "
+        echo "kubectl - no need to install "
+        install_kubectl
     else
-        echo "needed to be installed"
+        echo "kubectl - needed to be installed"
         install_kubectl
     fi
 
@@ -132,9 +134,14 @@ function create_context(){
 }
 
 function validate_cluster_is_up(){
-	while [ `docker logs rancher-server | grep 'cluster successfully' | wc -l` != 1 ] ; do 
-	 echo "waiting for cluster to be up < please wait and drink something meanwhile :) "
+        echo "waiting for cluster to be up < please wait and drink something meanwhile :) "
+        timeValid=0
+        validate_cluster_status=`docker logs rancher-server | grep -i 'cluster successfully' | wc -l`
+	while [ $validate_cluster_status != 1 ] ; do 
+          validate_cluster_status=`docker logs rancher-server | grep -i 'cluster successfully' | wc -l`
+          ((timeValid++)) 
 	done 
+        echo "time validation: $timeValid"
 
 }
 
