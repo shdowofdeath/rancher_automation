@@ -111,7 +111,6 @@ function validate_kubectl(){
     get_client=`kubectl version | grep Client  | wc -l`
     if [ ${get_client} !=  2 ] ; then
         echo "kubectl - no need to install "
-        install_kubectl
     else
         echo "kubectl - needed to be installed"
         install_kubectl
