@@ -98,7 +98,7 @@ function rancher_configuration() {
       LOGINRESPONSE=`curl --noproxy "*" -s 'https://127.0.0.1:9443/v3-public/localProviders/local?action=login' -H 'content-type: application/json' --data-binary '{"username":"admin","password":"admin"}' --insecure`
       LOGINTOKEN=`echo $LOGINRESPONSE | jq -r .token`
       # Change password
-      curl -s --noproxy "*" 'https://127.0.0.1:9443/v3/users?action=changepassword' -H 'content-type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"currentPassword":"admin","newPassword":"admin"}' --insecure
+      curl -s --noproxy "*" 'https://127.0.0.1:9443/v3/users?action=changepassword' -H 'content-type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"currentPassword":"admin","newPassword":${PASSWORD}}' --insecure
       # Create API key
       APIRESPONSE=`curl -s --noproxy "*" 'https://127.0.0.1:9443/v3/token' -H 'content-type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"type":"token","description":"automation"}' --insecure`
       # Extract and store token
@@ -183,9 +183,9 @@ function validate_cluster_is_up(){
 
 function get_context(){
     pip install -r requirements.txt
-    python get_context_from_rancher.py -u admin -p admin -i 127.0.0.1 -o 9443 -c local
+    python get_context_from_rancher.py -u admin -p ${PASSWORD} -i 127.0.0.1 -o 9443 -c local
     echo "Your cluster is ready to use , enjoy and don't brake it :) " 
-    echo "To access please login with username admin , passowrd : admin to https://`hostname -I | cut -d' ' -f1`:9443"
+    echo "To access please login with username admin , passowrd : ${PASSWORD} to https://`hostname -I | cut -d' ' -f1`:9443"
 }
 
 if [ ${CLEANUP} = "true" ] ; then
