@@ -23,6 +23,9 @@ CLEANUP="true"
         RANCHERSERVER_VER=$2
         shift
         ;;
+      -w|--workdir)
+        WORKDIR=$2
+        shift
       --) # end argument parsing
         shift
         break
@@ -44,7 +47,13 @@ CLEANUP="true"
   if [ -z $RANCHERSERVER_VER ];then
     RANCHERSERVER_VER="v1.12.4-rancher1-1"
   fi
+  
+  if [ -z $WORKDIR ];then
+    WORKDIR=`pwd`
+    echo "the default work dir is: $WORKDIR"
+  fi
 
+cd $WORKDIR
 function cleanup(){
     #cleanning dockers 
     while [ `docker ps -a  | grep -v CONTAINER | awk '{print $1}'   | wc -l` != 0  ] ; do 
