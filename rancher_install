@@ -55,6 +55,8 @@ CLEANUP="true"
   fi
 
 cd $WORKDIR
+pwd
+echo "run in $WORKDIR"
 function cleanup(){
     #cleanning dockers 
     while [ `docker ps -a  | grep -v CONTAINER | awk '{print $1}'   | wc -l` != 0  ] ; do 
