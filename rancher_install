@@ -26,6 +26,7 @@ CLEANUP="true"
       -w|--workdir)
         WORKDIR=$2
         shift
+	;;
       --) # end argument parsing
         shift
         break
