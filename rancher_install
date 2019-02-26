@@ -191,6 +191,7 @@ if [ ${CLEANUP} = "true" ] ; then
 fi
 
 validate_kubectl
+instal_jq
 install_rancher
 rancher_validation
 sleep 45s
