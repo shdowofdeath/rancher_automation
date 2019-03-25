@@ -24,4 +24,5 @@ docker install doesn't mettter what OS or what docker version
 
 
 open issue in-case of issue 
+https://github.com/shdowofdeath/rancher_automation/issues/new 
 
