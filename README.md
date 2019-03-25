@@ -24,7 +24,7 @@ docker install doesn't mettter what OS or what docker version
 
 ### Steps to deploy :) 3 min and you there :)
 
-
+    sudo bash 
     git clone https://github.com/shdowofdeath/rancher_automation.git
 
     cd rancher_automation
