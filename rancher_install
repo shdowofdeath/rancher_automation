@@ -99,6 +99,9 @@ function rancher_configuration() {
       APIRESPONSE=`curl -s --noproxy "*" 'https://127.0.0.1:9443/v3/token' -H 'content-type: application/json' -H "Authorization: Bearer $LOGINTOKEN" --data-binary '{"type":"token","description":"automation"}' --insecure`
       # Extract and store token
       APITOKEN=`echo $APIRESPONSE | jq -r .token`
+      # Set server-url
+      RANCHER_SERVER=https://${HOSTNAME_IP}:9443
+      curl -s --noproxy "*" 'https://127.0.0.1/v3/settings/server-url' -H 'content-type: application/json' -H "Authorization: Bearer $APITOKEN" -X PUT --data-binary '{"name":"server-url","value":"'$RANCHER_SERVER'"}' --insecure 
       # Create cluster
       echo $RANCHERSERVER_VER > /tmp/test_local
       cat /tmp/test_local
