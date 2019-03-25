@@ -136,7 +136,8 @@ function init_node(){
 function install_kubectl(){
     curl -LO ${KCTL_VERSION}
     chmod +x ./kubectl
-    sudo mv ./kubectl /usr/local/bin/kubectl
+    sudo cp ./kubectl /usr/local/bin/kubectl
+    sudo cp ./kubectl /usr/bin/kubectl
 }
 
 function validate_kubectl(){
