@@ -15,6 +15,16 @@ docker install doesn't mettter what OS or what docker version
      stable"
     sudo apt-get -y update
     sudo apt-get install -y docker-ce
+    sudo apt install -y python
+    sudo apt install -y python3-pip
+    
+### for example install docker in aws ami :) 
+    sudo yum update -y
+    sudo amazon-linux-extras install -y docker
+    sudo service docker start
+    sudo usermod -a -G docker ec2-user
+    yum install -y git
+    yum install -y python python-pip
 
 ### Steps to deploy :) 3 min and you there :)
 
