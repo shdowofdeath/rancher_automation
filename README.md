@@ -9,7 +9,7 @@ docker install doesn't mettter what OS or what docker version
 
     git clone https://github.com/shdowofdeath/rancher_automation.git
 
-    cd rancher_automation.git
+    cd rancher_automation
 
     bash rancher_install
 
