@@ -20,7 +20,7 @@ docker install doesn't mettter what OS or what docker version
     sudo yum install amazon-linux-extras install -y docker
     sudo service docker start
     sudo usermod -a -G docker ec2-user
-    yum install -y git python python-pip
+    sudo yum install -y git python python-pip
 
 ### Steps to deploy :) 3 min and you there :)
 
