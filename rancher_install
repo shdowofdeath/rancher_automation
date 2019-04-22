@@ -58,7 +58,7 @@ function cleanup(){
     while [ `docker volume ls | grep -v VOLUME  | awk '{print $1}' | wc -l ` != 0 ] ; do 
      docker volume ls  | grep -v VOLUME  | awk '{print $2}' | xargs -I whatisit docker volume rm whatisit
     done 
-
+    sudo rm -rf /var/lib/calico /etc/kubernetes /var/lib/etcd /var/lib/rancher
 
 }
 
