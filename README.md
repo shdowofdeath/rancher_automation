@@ -1,5 +1,12 @@
 # Rancher automation
 
+```
+graph TD;
+    CLONE-->INSTALL;
+    INSTALL-->K8S;
+    K8S-->DEPLOY;
+```    
+    
 ### pre req :)
 docker install doesn't mettter what OS or what docker version  
 
