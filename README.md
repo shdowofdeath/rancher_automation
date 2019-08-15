@@ -1,4 +1,4 @@
-# rancher_automation
+# Rancher automation
 
 ### pre req :)
 docker install doesn't mettter what OS or what docker version  
