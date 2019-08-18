@@ -3,8 +3,3 @@ jobs:
   test:
     docker:
       - image: rancher/rancher:latest
-    steps:
-      - run:
-          command: |
-           ls
-
