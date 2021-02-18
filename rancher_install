@@ -206,7 +206,8 @@ function install_helm(){
 	./get_helm.sh --version v2.11.0
 	kubectl -n kube-system create serviceaccount tiller
 	kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
-	helm init --service-account tiller --history-max=2
+# 	helm init --service-account tiller --history-max=2
+        helm init --service-account tiller --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | kubectl apply -f -
 	
 
 }
